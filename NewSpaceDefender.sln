@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewSpaceDefender", "NewSpaceDefender\NewSpaceDefender.csproj", "{629C6952-9EAA-4F77-8C4C-06087C7953AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{629C6952-9EAA-4F77-8C4C-06087C7953AF}.Debug|x86.ActiveCfg = Debug|x86
+		{629C6952-9EAA-4F77-8C4C-06087C7953AF}.Debug|x86.Build.0 = Debug|x86
+		{629C6952-9EAA-4F77-8C4C-06087C7953AF}.Release|x86.ActiveCfg = Release|x86
+		{629C6952-9EAA-4F77-8C4C-06087C7953AF}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6BFAA6B-2E2B-4158-87DB-1CCA345A2C81}
+	EndGlobalSection
+EndGlobal
