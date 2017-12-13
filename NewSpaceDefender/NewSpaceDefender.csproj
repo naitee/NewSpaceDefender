@@ -41,9 +41,20 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CharecterInvader.cs" />
+    <Compile Include="CharecterLasergun.cs" />
+    <Compile Include="CharecterSpaceship.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="InvaderArt.cs" />
+    <Compile Include="Meteorite.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SceneDead.cs" />
+    <Compile Include="SceneGame1.cs" />
+    <Compile Include="SceneGame2.cs" />
+    <Compile Include="SceneInstruction.cs" />
+    <Compile Include="SceneShop.cs" />
+    <Compile Include="SceneStart.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
