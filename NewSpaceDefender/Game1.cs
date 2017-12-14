@@ -22,12 +22,12 @@ namespace NewSpaceDefender
         SceneDead sceneDead;
 
         
-        public int GameSence = 1;
+        public int GameSence = 101;
 
 
 
 
-        CharecterLasergun laserGun = new CharecterLasergun(1, 10, 2, 40000, 3);
+        CharecterLasergun laserGun = new CharecterLasergun(1, 10, 2, 40000, 3,0);
         CharecterSpaceship spaceship = new CharecterSpaceship(100, 100);
         List<Meteorite> meteorites = new List<Meteorite>();
         List<CharecterInvader> Tangs = new List<CharecterInvader>();
@@ -44,7 +44,7 @@ namespace NewSpaceDefender
             //TANG
             for(int i =0;i < 10; i++)
             {
-                Tangs.Add(new CharecterInvader(10, 1));
+                Tangs.Add(new CharecterInvader(5, 1));
             }
 
         }
@@ -179,6 +179,7 @@ namespace NewSpaceDefender
 
                 ///Lost Case
                 case 101:
+                    sceneDead.updateLasergun(laserGun);
                     sceneDead.Draw(spriteBatch);
                     sceneDead.Update(gameTime);
                     break;

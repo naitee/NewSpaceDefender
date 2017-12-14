@@ -37,13 +37,15 @@ namespace NewSpaceDefender
         public int Money;
         public double Reload;
         public int Bomb;
-        public CharecterLasergun(int atk, int clipmax, double reload, int money, int bomb)
+        public int Score;
+        public CharecterLasergun(int atk, int clipmax, double reload, int money, int bomb, int score)
         {
             Atk = atk;
             ClipMax = clipmax;
             Reload = reload;
             Money = money;
             Bomb = bomb;
+            Score = score;
         }
 
 
@@ -79,23 +81,6 @@ namespace NewSpaceDefender
                 }
             }
             return shot;
-        }
-
-        public void ClearMapBomb()
-        {
-            if (Keyboard.GetState().IsKeyDown(key: Keys.Space))
-            {
-                if (Bomb > 0)
-                {
-                    bombing = true;
-                    Bomb -= 1;
-                }
-                else
-                {
-                    bombing = false;
-                }
-
-            }
         }
     }
 }

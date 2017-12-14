@@ -43,6 +43,7 @@ namespace NewSpaceDefender
         SpriteFont seeReload;
         SpriteFont seeBomb;
         SpriteFont seeMoney;
+        SpriteFont seeHp;
         SpriteFont ShopSpeech1;
 
 
@@ -98,6 +99,7 @@ namespace NewSpaceDefender
             seeReload = Content.Load<SpriteFont>("ShopSeeReload");
             seeBomb = Content.Load<SpriteFont>("ShopseeBomb");
             seeMoney = Content.Load<SpriteFont>("ShopseeMoney");
+            seeHp = Content.Load<SpriteFont>("ShopseeHp");
             ShopSpeech1 = Content.Load<SpriteFont>("ShopSpeech1");
 
             UpgradeAttack = Content.Load<Texture2D>("ShopUpgradeAttack");
@@ -227,9 +229,14 @@ namespace NewSpaceDefender
                 {
                     lasergun.Money -= 500;
                     spaceship.Hp += Hpfix;
+                    if (spaceship.Hp > spaceship.Maxhp)
+                    {
+                        spaceship.Hp = spaceship.Maxhp;
+                        lasergun.Money += 500;
+                    }
 
                 }
-
+                
             }
             //Upgrade1
             if (CrosshairObj.Intersects(UpgradeShip1Obj) && Mouse.GetState().LeftButton == ButtonState.Pressed && CanClick)
@@ -240,7 +247,7 @@ namespace NewSpaceDefender
                 {
                     lasergun.Money -= 1000;
                     spaceship.Maxhp += HpMax;
-
+                    spaceship.Hp = spaceship.Maxhp;
                 }
             }
             //Upgrade2
@@ -252,6 +259,7 @@ namespace NewSpaceDefender
                 {
                     lasergun.Money -= 1000;
                     spaceship.Maxhp += HpMax;
+                    spaceship.Hp = spaceship.Maxhp;
                 }
             }
             //Upgrade3
@@ -263,6 +271,7 @@ namespace NewSpaceDefender
                 {
                     lasergun.Money -= 1000;
                     spaceship.Maxhp += HpMax;
+                    spaceship.Hp = spaceship.Maxhp;
                 }
             }
             //Upgrade4
@@ -274,6 +283,7 @@ namespace NewSpaceDefender
                 {
                     lasergun.Money -= 1000;
                     spaceship.Maxhp += HpMax;
+                    spaceship.Hp = spaceship.Maxhp;
                 }
             }
 
@@ -307,7 +317,8 @@ namespace NewSpaceDefender
             spriteBatch.DrawString(seeClip, "Clip: " + lasergun.ClipMax, new Vector2(420, 720), Color.White);
             spriteBatch.DrawString(seeReload, "Reload: " + lasergun.Reload, new Vector2(550, 670), Color.White);
             spriteBatch.DrawString(seeBomb, "Bomb  : " + lasergun.Bomb, new Vector2(550, 720), Color.White);
-            spriteBatch.DrawString(seeMoney, "Money: " + lasergun.Money, new Vector2(720, 695), Color.White);
+            spriteBatch.DrawString(seeMoney, "Money: " + lasergun.Money, new Vector2(730, 720), Color.White);
+            spriteBatch.DrawString(seeHp, "Hp : " + spaceship.Hp +"/"+ spaceship.Maxhp, new Vector2(730, 670), Color.White);
 
             spriteBatch.Draw(UpgradeAttack, UpgradeAttackObj  , Color.White);
             spriteBatch.Draw(UpgradeClip, UpgradeClipObj, Color.White);
@@ -316,6 +327,7 @@ namespace NewSpaceDefender
 
 
             spriteBatch.Draw(UpgradeFix, UpgradeFixObj, Color.White);
+
             switch (LvShip)
             {
                 case 1:
