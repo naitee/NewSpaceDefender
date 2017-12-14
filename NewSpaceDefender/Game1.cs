@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.Collections.Generic;
 namespace NewSpaceDefender
 {
     /// <summary>
@@ -30,12 +30,17 @@ namespace NewSpaceDefender
 
         CharecterLasergun laserGun = new CharecterLasergun(1, 10, 2, 40000, 3);
         CharecterSpaceship spaceship = new CharecterSpaceship(100, 100);
-
+        List<Meteorite> meteorites = new List<Meteorite>();
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            for(int i = 0; i < 5; i++)
+            {
+                meteorites.Add(new Meteorite(10));
+            }
+            
 
         }
 
@@ -104,9 +109,11 @@ namespace NewSpaceDefender
             //Game To Shop
             if (sceneGame1.Stage1Pass) GameSence += 1 ;
             //Shop To Game 2
-            if (sceneShop.ChangeStage) GameSence = 5;
+            if (sceneShop.ChangeStageTo2) GameSence = 5;
             //Game2 To Shop
             if (sceneGame2.Stage2Pass) GameSence = 6;
+            //Shop To Game3
+            if (sceneShop.ChangeStageTo3) GameSence = 7;
 
 
             //Died at stage 1
@@ -137,6 +144,7 @@ namespace NewSpaceDefender
                 case 3:
                     sceneGame1.updateLasergun(laserGun);
                     sceneGame1.updateSpaceship(spaceship);
+                    sceneGame1.updateMeteorite(meteorites);
                     sceneGame1.Draw(spriteBatch);
                     sceneGame1.Update(gameTime);
                     break;
@@ -147,6 +155,7 @@ namespace NewSpaceDefender
                     sceneShop.Update(gameTime);
                     break;
                 case 5:
+                    sceneGame2.updateMeteorite(meteorites);
                     sceneGame2.updateLasergun(laserGun);
                     sceneGame2.updateSpaceship(spaceship);
                     sceneGame2.Draw(spriteBatch);
@@ -157,7 +166,9 @@ namespace NewSpaceDefender
                     sceneShop.updateSpaceship(spaceship);
                     sceneShop.Draw(spriteBatch);
                     sceneShop.Update(gameTime);
-                    break; 
+                    break;
+                case 7:
+                    
 
                 ///Lost Case
                 case 101:

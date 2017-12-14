@@ -64,7 +64,9 @@ namespace NewSpaceDefender
         CharecterSpaceship spaceship;
 
         int LvShip = 1;
-        public bool ChangeStage = false;
+        int i = 1;
+        public bool ChangeStageTo2 = false;
+        public bool ChangeStageTo3 = false;
         bool Pruet = false;
         bool CanClick = true;
 
@@ -119,8 +121,6 @@ namespace NewSpaceDefender
         {
             this.spaceship = spaceship;
         }
-
-     
 
         public void Update(GameTime gametime)
         {
@@ -291,8 +291,10 @@ namespace NewSpaceDefender
             //Finished Shopping
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
-                ChangeStage = true;
+                i++;   
             }
+            if (i == 2) ChangeStageTo2 = true;
+            if (i == 4) ChangeStageTo3 = true;
         }
 
         public void Draw(SpriteBatch spriteBatch)
