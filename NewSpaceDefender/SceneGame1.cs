@@ -22,10 +22,12 @@ namespace NewSpaceDefender
 
         Texture2D Spaceship;
         Texture2D Crosshair1;
+        Texture2D Shot1;
+        Texture2D Shot2;
         Texture2D[] Meteorite = new Texture2D[6];
 
-
-
+        Rectangle Shot1Obj;
+        Rectangle Shot2Obj;
         Rectangle CrosshairObj;
         Rectangle SpacshipObj;
         Rectangle[] MeteoriteObj= new Rectangle[6];
@@ -34,13 +36,11 @@ namespace NewSpaceDefender
         CharecterSpaceship spaceship;
         List<Meteorite> meteoriteClass = new List<Meteorite>();
 
-
         Vector2 ClipPos = new Vector2(680, 20);
         Vector2 HpPos = new Vector2(200, 20);
         Vector2 TimePos = new Vector2(680, 50);
 
-        int[] MetroX = new int[10];
-        int[] MetoY = new int[10];
+
 
         int timer = 0;
         int clip;
@@ -52,13 +52,15 @@ namespace NewSpaceDefender
 
         public bool Stage1Pass = false;
         public bool Stage1fail = false;
+        private WarSpace warSpace;
 
         public SceneGame1(ContentManager content, Vector2 screensize)
         {
             Content = content;
             ScreenSize = screensize;
             LoadContent();
-            
+
+            //Meteorite
             for (int i = 0; i < 5; i++)
             {
                 MeteoriteObj[i] = new Rectangle(-1000, 500+20*i, Meteorite[i].Width / 15, Meteorite[i].Height / 15);
@@ -71,15 +73,13 @@ namespace NewSpaceDefender
         {
             Spaceship = Content.Load<Texture2D>("Game1Blade");
             Crosshair1 = Content.Load<Texture2D>("Game1Crosshair");
-
-
-
+            Shot1 = Content.Load<Texture2D>("Game1Shot1");
+            Shot2 = Content.Load<Texture2D>("Game1Shot2");
+            //MeteoriteTexture2D
             for (int i =0; i<=5; i++)
             {
                 Meteorite[i] = Content.Load<Texture2D>("Game1Meteorite");
             }
-            
-
 
             GameTime = Content.Load<SpriteFont>("Game1Time");
             Clip = Content.Load<SpriteFont>("Game1Clip");
@@ -99,17 +99,12 @@ namespace NewSpaceDefender
         {
             this.spaceship = spaceship;
         }
-
         public void updateMeteorite(List<Meteorite> meteorites)
         {
             
                 meteoriteClass = meteorites;
             
         }
-
-
-
-
 
         public void Update(GameTime gametime)
         {
@@ -121,13 +116,12 @@ namespace NewSpaceDefender
 
 
             //Obj
+            Shot1Obj = new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, Shot1.Width/2, Shot1.Height/2);
+            Shot2Obj = new Rectangle(Mouse.GetState().X, Mouse.GetState().Y, Shot1.Width / 2, Shot1.Height / 2);
             CrosshairObj = new Rectangle(Mouse.GetState().X - 50, Mouse.GetState().Y - 50, Crosshair1.Width / 2, Crosshair1.Height / 2);
             SpacshipObj = new Rectangle(50, 200, Spaceship.Width, Spaceship.Width);
-
-
             
-
-
+            //MeteoriteMoving
             for (int i = 0; i < 5; i++)
             { 
                 MeteoriteObj[i] = new Rectangle(MeteoriteObj[i].X + (i+1), (MeteoriteObj[i].Y ), Meteorite[i].Width / 3, Meteorite[i].Height / 3);
@@ -147,22 +141,23 @@ namespace NewSpaceDefender
                         case 4:
                             MeteoriteObj[i].X = -400;
                             break;
-                    } 
+                    }
+                    meteoriteClass[i].Hp = 3;
                 }
 
             }
-
-            for(int i =0; i < 5; i++)
+            //MeteoriteAction
+            for (int i =0; i < 5; i++)
             {
                 if(CrosshairObj.Intersects(MeteoriteObj[i])&&clip!=0&& Mouse.GetState().LeftButton == ButtonState.Pressed&&CanClick)
                 {
                     meteoriteClass[i].Hp -= lasergun.Atk;
                 }
-                if(meteoriteClass[i].Hp == 0)
+                if(meteoriteClass[i].Hp <= 0)
                 {
                     meteoriteClass[i].Destroy(lasergun);
                     check[i] = true;
-                    meteoriteClass[i].Hp = 10;
+                    meteoriteClass[i].Hp = 3;
                     
                 }
             }
@@ -181,7 +176,7 @@ namespace NewSpaceDefender
             }
             ///Pass
             if (Keyboard.GetState().IsKeyDown(Keys.Enter)) Stage1Pass = true;
-            if (timer/60 > 10) Stage1Pass = true;
+            if (timer/60 > 60) Stage1Pass = true;
             ///Failed
             if (spaceship.Hp == 0) Stage1fail = true;
         }
@@ -189,12 +184,12 @@ namespace NewSpaceDefender
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(Clip, "Magazine : " + meteoriteClass[0].Hp+ " / " + meteoriteClass[1].Hp, ClipPos, Color.White);
-            spriteBatch.DrawString(ShipHP, "Health : " + meteoriteClass[2].Hp+ " / " + meteoriteClass[3].Hp, HpPos, Color.White);
-            spriteBatch.DrawString(GameTime, "Time : " + meteoriteClass[4].Hp, TimePos, Color.White);
-
+            spriteBatch.DrawString(Clip, "Magazine : " + clip+ " / " + clipmax, ClipPos, Color.White);
+            spriteBatch.DrawString(ShipHP, "Health : " + shiphp + " / " + shiphpmax, HpPos, Color.White);
+            spriteBatch.DrawString(GameTime, "Time : " + timer/60, TimePos, Color.White);
             
-                for (int i = 0;i < 5; i++)
+            //Meteorite
+            for (int i = 0;i < 5; i++)
                 {
                     spriteBatch.Draw(Meteorite[i], MeteoriteObj[i], Color.White);
                     if(check[i] == true)
@@ -204,12 +199,20 @@ namespace NewSpaceDefender
                     }
                     
                 }
-                
-           
-
 
             spriteBatch.Draw(Spaceship, SpacshipObj, Color.White);
             spriteBatch.Draw(Crosshair1, CrosshairObj, Color.Red);
+
+            //ShootingAnimation
+            if(Mouse.GetState().LeftButton == ButtonState.Pressed&&clip !=0)
+            {
+                spriteBatch.Draw(Shot2, Shot2Obj, Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(Shot1, Shot1Obj, Color.White);
+            }
+  
         }
     }
 }

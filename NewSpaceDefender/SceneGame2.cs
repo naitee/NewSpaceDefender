@@ -158,11 +158,11 @@ namespace NewSpaceDefender
                 {
                     meteoriteClass[i].Hp -= lasergun.Atk;
                 }
-                if (meteoriteClass[i].Hp == 0)
+                if (meteoriteClass[i].Hp <= 0)
                 {
                     meteoriteClass[i].Destroy(lasergun);
                     check[i] = true;
-                    meteoriteClass[i].Hp = 10;
+                    meteoriteClass[i].Hp = 5;
 
                 }
             }

@@ -13,7 +13,6 @@ namespace NewSpaceDefender
         SpriteBatch spriteBatch;
         public Vector2 ScreenSize = new Vector2(1024, 768);
 
-
         //Include Scene && scene setting
         SceneStart SceneStart;
         SceneInstruction sceneInstruction;
@@ -38,7 +37,7 @@ namespace NewSpaceDefender
             Content.RootDirectory = "Content";
             for(int i = 0; i < 5; i++)
             {
-                meteorites.Add(new Meteorite(10));
+                meteorites.Add(new Meteorite(3));
             }
             
 
@@ -168,6 +167,7 @@ namespace NewSpaceDefender
                     sceneShop.Update(gameTime);
                     break;
                 case 7:
+
                     
 
                 ///Lost Case
