@@ -30,16 +30,22 @@ namespace NewSpaceDefender
         CharecterLasergun laserGun = new CharecterLasergun(1, 10, 2, 40000, 3);
         CharecterSpaceship spaceship = new CharecterSpaceship(100, 100);
         List<Meteorite> meteorites = new List<Meteorite>();
+        List<CharecterInvader> Tangs = new List<CharecterInvader>();
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            for(int i = 0; i < 5; i++)
+            //Meteorites
+            for (int i = 0; i < 5; i++)
             {
                 meteorites.Add(new Meteorite(3));
             }
-            
+            //TANG
+            for(int i =0;i < 10; i++)
+            {
+                Tangs.Add(new CharecterInvader(10, 1));
+            }
 
         }
 
@@ -141,6 +147,7 @@ namespace NewSpaceDefender
                     sceneInstruction.Update(gameTime);
                     break;
                 case 3:
+                    sceneGame1.updateInvaderTang(Tangs);
                     sceneGame1.updateLasergun(laserGun);
                     sceneGame1.updateSpaceship(spaceship);
                     sceneGame1.updateMeteorite(meteorites);

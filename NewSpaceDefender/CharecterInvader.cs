@@ -13,34 +13,15 @@ namespace NewSpaceDefender
         public int InvaderAtk;
 
 
-
-
         public CharecterInvader(int invaderhp, int invaderatk)
         {
             InvaderHp = invaderhp;
             InvaderAtk = invaderatk;
         }
 
-        public void ShoottheSpaceship()
+        public void Destroy(CharecterLasergun laserGun)
         {
+            laserGun.Money += 200;
         }
-
-        /* public void isHit()
-         {
-             if(laserguninvader.shot == true )//&& SpritebatchCrosshair intersecwith(SpritebatchInvader))
-             {
-                 InvaderHp -= laserguninvader.Atk;
-             }
-         }
-
-         public void isInvaderDead()
-         {
-             if (InvaderHp == 0)
-             {
-
-             }
-         }*/
-
-
     }
 }

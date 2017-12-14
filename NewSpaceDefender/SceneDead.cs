@@ -20,8 +20,6 @@ namespace NewSpaceDefender
 
         Texture2D dead;
 
-        public bool restart = false;
-
         public SceneDead(ContentManager content, Vector2 screensize)
         {
             Content = content;

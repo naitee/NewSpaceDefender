@@ -45,7 +45,6 @@
     <Compile Include="CharecterLasergun.cs" />
     <Compile Include="CharecterSpaceship.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="InvaderArt.cs" />
     <Compile Include="Meteorite.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
