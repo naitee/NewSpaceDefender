@@ -51,9 +51,14 @@
     <Compile Include="SceneDead.cs" />
     <Compile Include="SceneGame1.cs" />
     <Compile Include="SceneGame2.cs" />
+    <Compile Include="SceneGame3.cs" />
+    <Compile Include="SceneGameSemiFinal.cs" />
     <Compile Include="SceneInstruction.cs" />
     <Compile Include="SceneShop.cs" />
+    <Compile Include="SceneShop2.cs" />
+    <Compile Include="SceneShop3.cs" />
     <Compile Include="SceneStart.cs" />
+    <Compile Include="VictoryScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

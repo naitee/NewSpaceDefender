@@ -24,7 +24,7 @@ namespace NewSpaceDefender
 
         public void Destroy(CharecterLasergun laserGun)
         {
-            laserGun.Money += 100;
+            laserGun.Money += 20;
         }
     }
 }

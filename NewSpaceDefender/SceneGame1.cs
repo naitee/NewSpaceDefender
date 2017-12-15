@@ -21,6 +21,9 @@ namespace NewSpaceDefender
         SpriteFont GameTime;
         SpriteFont Bomb;
 
+        SpriteFont GameStart;
+        SpriteFont GameClear;
+
         Texture2D Spaceship;
         Texture2D Spaceship2;
         Texture2D Spaceship3;
@@ -34,6 +37,8 @@ namespace NewSpaceDefender
         Texture2D[] Tang2DShoot = new Texture2D[10];
         Texture2D[] InvaderDead = new Texture2D[10];
         Texture2D Background;
+
+        Texture2D StartBlog;
 
         Rectangle Shot1Obj;
         Rectangle Shot2Obj;
@@ -73,6 +78,7 @@ namespace NewSpaceDefender
         public bool Stage1fail = false;
 
 
+
         public SceneGame1(ContentManager content, Vector2 screensize)
         {
             Content = content;
@@ -105,6 +111,10 @@ namespace NewSpaceDefender
             Shot1 = Content.Load<Texture2D>("Game1Shot1");
             Shot2 = Content.Load<Texture2D>("Game1Shot2");
             Background = Content.Load<Texture2D>("War/1");
+
+
+            StartBlog = Content.Load<Texture2D>("1");
+            
             
             //MeteoriteTexture2D
             for (int i = 0; i<5; i++)
@@ -128,6 +138,9 @@ namespace NewSpaceDefender
             {
                 InvaderDead[i] = Content.Load<Texture2D>("skull");
             }
+
+            GameStart = Content.Load<SpriteFont>("StageStart");
+            GameClear = Content.Load<SpriteFont>("StageClear");
 
             Bomb = Content.Load<SpriteFont>("Game1Bomb");
             GameTime = Content.Load<SpriteFont>("Game1Time");
@@ -260,6 +273,7 @@ namespace NewSpaceDefender
                     {
                         spaceship.Hp -= invaderTangClass[i].InvaderAtk;
                     }
+                    
                 }
                 //ShootAtInvader
                 if(CrosshairObj.Intersects(InvaderTangObj[i]) && clip != 0 && Mouse.GetState().LeftButton == ButtonState.Pressed && CanClick)
@@ -269,9 +283,9 @@ namespace NewSpaceDefender
                 //InvaderDead
                 if(invaderTangClass[i].InvaderHp <= 0)
                 {
-                    invaderTangClass[i].Destroy(lasergun);
+                    lasergun.Money += 100;
                     CheckTang[i] = true;
-                    invaderTangClass[i].InvaderHp = 10;
+                    invaderTangClass[i].InvaderHp = invaderTangClass[i].InvaderHpMax;
                 }
             }
             //Bombbing
@@ -316,9 +330,9 @@ namespace NewSpaceDefender
             }
             //Pass
             if (Keyboard.GetState().IsKeyDown(Keys.Enter)) Stage1Pass = true;
-            if (timer / 60 > 60)
+            if (timer / 60 > 62)
             {
-                lasergun.Score += 1000;
+                lasergun.Score += 1000*spaceship.Hp;
                 Stage1Pass = true;
             }
             //Failed
@@ -348,8 +362,8 @@ namespace NewSpaceDefender
                 }
             }
             spriteBatch.DrawString(Clip, "Magazine : " + clip + " / " + clipmax, ClipPos, Color.White);
-            spriteBatch.DrawString(ShipHP, "Health : " + lasergun.Score + " / " + shiphpmax, HpPos, Color.White);
-            spriteBatch.DrawString(GameTime, "Time : " + timer/60, TimePos, Color.White);
+            spriteBatch.DrawString(ShipHP, "Health : " + shiphp + " / " + shiphpmax, HpPos, Color.White);
+            spriteBatch.DrawString(GameTime, "Time : " + lasergun.Money, TimePos, Color.White);
             
             //DrawMeteorite
             for (int i = 0;i < 5; i++)
@@ -399,7 +413,7 @@ namespace NewSpaceDefender
                 }
                 //If die change position
                 if (CheckInvader[i] == true) {
-                    lasergun.Score += 20;
+                    lasergun.Score += 100;
                     InvaderTangObj[i].X = 3000;
                     CheckInvader[i] = false;
                 }
@@ -410,17 +424,7 @@ namespace NewSpaceDefender
                     {
                         spriteBatch.Draw(Tang2DShoot[i], InvaderTangObj[i], Color.White);
                     }
-                }
-
-
-
-
-
-
-
-
-
-                
+                }    
             }
 
             spriteBatch.Draw(Spaceship, SpacshipObj, Color.White);
@@ -446,6 +450,28 @@ namespace NewSpaceDefender
 
             }
             spriteBatch.Draw(Crosshair1, CrosshairObj, Color.Red);
+
+            if(timer/60  < 3)
+            {
+                spriteBatch.Draw(StartBlog, new Rectangle(110,200,StartBlog.Width,StartBlog.Height), Color.White);
+                spriteBatch.DrawString(GameStart, "  STAGE 1 \n ~START~", new Vector2(375, 300), Color.White); 
+            }
+            if(timer/60 <= 62&&timer/60>60)
+            {
+                spriteBatch.Draw(StartBlog, new Rectangle(110, 200, StartBlog.Width, StartBlog.Height), Color.White);
+                spriteBatch.DrawString(GameStart, "  STAGE 1 \n ~CLEAR~", new Vector2(375, 300), Color.White);
+                for (int i = 0; i < 10; i++)
+                {
+                    //InvaderDead
+                    CheckTang[i] = true;
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    //MeteoriteDestroyed
+                    check[i] = true;
+                }
+            }
+
 
             //ShootingAnimation
             if(Mouse.GetState().LeftButton == ButtonState.Pressed&&clip !=0)

@@ -10,18 +10,20 @@ namespace NewSpaceDefender
     class CharecterInvader
     {
         public int InvaderHp;
+        public int InvaderHpMax;
         public int InvaderAtk;
 
 
-        public CharecterInvader(int invaderhp, int invaderatk)
+        public CharecterInvader(int invaderhp,int invaderhpmax, int invaderatk)
         {
             InvaderHp = invaderhp;
+            InvaderHpMax = invaderhpmax;
             InvaderAtk = invaderatk;
         }
 
         public void Destroy(CharecterLasergun laserGun)
         {
-            laserGun.Money += 200;
+            laserGun.Money += 300;
         }
     }
 }
