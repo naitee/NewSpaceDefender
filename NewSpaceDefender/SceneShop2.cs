@@ -297,7 +297,7 @@ namespace NewSpaceDefender
             }
 
             //Finished Shopping
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            if (Keyboard.GetState().IsKeyDown(Keys.A) && Keyboard.GetState().IsKeyDown(Keys.S) && Keyboard.GetState().IsKeyDown(Keys.D) && Keyboard.GetState().IsKeyDown(Keys.F))
             {
                 ChangeStageTo3 = true;
             }
@@ -352,7 +352,7 @@ namespace NewSpaceDefender
             if (Pruet == true)
             {
                 spriteBatch.Draw(ShopSpeech, ShopSpeechObj, Color.White);
-                spriteBatch.DrawString(ShopSpeech1, "Fortune Cookie or Retire Cookie?\nSpacebar to finished UPGRADE", new Vector2(355, 524), Color.Red);
+                spriteBatch.DrawString(ShopSpeech1, "Fortune Cookie or Retire Cookie?", new Vector2(355, 540), Color.Red);
             }
             spriteBatch.Draw(Crosshair, CrosshairObj, Color.Red);
         }

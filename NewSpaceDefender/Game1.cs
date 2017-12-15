@@ -23,11 +23,12 @@ namespace NewSpaceDefender
         SceneShop sceneShop;
         SceneShop2 sceneShop2;
         SceneShop3 sceneShop3;
+        Shop4 shop4;
         SceneDead sceneDead;
         VictoryScene victoryScene;
 
 
-        public int GameSence = 1;
+        public int GameSence = 3;
 
 
 
@@ -96,6 +97,7 @@ namespace NewSpaceDefender
             sceneShop = new SceneShop(Content, ScreenSize);
             sceneShop2 = new SceneShop2(Content, ScreenSize);
             sceneShop3 = new SceneShop3(Content, ScreenSize);
+            shop4 = new Shop4(Content, ScreenSize);
             sceneGameSemi = new SceneGameSemiFinal(Content, ScreenSize);
             sceneDead = new SceneDead(Content, ScreenSize);
             victoryScene = new VictoryScene(Content, ScreenSize);
@@ -146,16 +148,18 @@ namespace NewSpaceDefender
             if (sceneGame1.Stage1Pass) GameSence = 4;
             //Shop To Game 2
             if (sceneShop.ChangeStageTo2) GameSence = 5;
-            //Game2 To Shop
+            //Game2 To Shop2
             if (sceneGame2.Stage2Pass) GameSence = 6;
-            //Shop To Game3
+            //Shop2 To Game3
             if (sceneShop2.ChangeStageTo3) GameSence = 7;
-            //Game3 To Shop
+            //Game3 To Shop3
             if (sceneGame3.Stage3Pass) GameSence = 8;
             //Shop3 To SemiGame
             if (sceneShop3.ChangeStageTo4) GameSence = 9;
-            //SemiGame To Shop
+            //SemiGame To Shop4
             if (sceneGameSemi.Stage4Pass) GameSence = 10;
+            //Shop4 To GameFinal
+            if (shop4.ChangeStageToFinal) GameSence = 11;
 
 
             //Died at stage 1
@@ -262,7 +266,12 @@ namespace NewSpaceDefender
                     sceneGameSemi.Update(gameTime);
                     break;
                 case 10:
-
+                    shop4.updateLasergun(laserGun);
+                    shop4.updateSpaceship(spaceship);
+                    shop4.Draw(spriteBatch);
+                    shop4.Update(gameTime);
+                    break;
+                case 11:
                     break;
 
                 ///Lost Case

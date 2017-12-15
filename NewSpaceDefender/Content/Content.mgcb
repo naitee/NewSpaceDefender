@@ -1313,3 +1313,10 @@
 /processorParam:TextureFormat=Color
 /build:Exit1.png
 
+#begin ReloadAnnouce.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ReloadAnnouce.spritefont
+

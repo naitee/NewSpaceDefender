@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Timers;
 namespace NewSpaceDefender
 {
-    class SceneShop3
+    class Shop4
     {
         ContentManager Content;
         Vector2 ScreenSize;
@@ -64,12 +64,12 @@ namespace NewSpaceDefender
         CharecterSpaceship spaceship;
 
         int LvShip = 1;
-        public bool ChangeStageTo4 = false;
+        public bool ChangeStageToFinal = false;
         bool Pruet = false;
         bool CanClick = true;
 
 
-        public SceneShop3(ContentManager content, Vector2 screensize)
+        public Shop4(ContentManager content, Vector2 screensize)
         {
             Content = content;
             ScreenSize = screensize;
@@ -298,7 +298,7 @@ namespace NewSpaceDefender
             //Finished Shopping
             if (Keyboard.GetState().IsKeyDown(Keys.A) && Keyboard.GetState().IsKeyDown(Keys.S) && Keyboard.GetState().IsKeyDown(Keys.D) && Keyboard.GetState().IsKeyDown(Keys.F))
             {
-                ChangeStageTo4 = true;
+                ChangeStageToFinal = true;
             }
         }
 
@@ -351,7 +351,7 @@ namespace NewSpaceDefender
             if (Pruet == true)
             {
                 spriteBatch.Draw(ShopSpeech, ShopSpeechObj, Color.White);
-                spriteBatch.DrawString(ShopSpeech1, "Next Stage,He Can't DIE!", new Vector2(400, 540), Color.Red);
+                spriteBatch.DrawString(ShopSpeech1, "It's SHOPPING TIME \nFor Final STAGE!!", new Vector2(400, 524), Color.Red);
             }
             spriteBatch.Draw(Crosshair, CrosshairObj, Color.Red);
         }

@@ -20,7 +20,7 @@ namespace NewSpaceDefender
         SpriteFont ShipHP;
         SpriteFont GameTime;
         SpriteFont Bomb;
-
+        SpriteFont ReloadAnnouce;
         SpriteFont GameStart;
         SpriteFont GameClear;
 
@@ -52,10 +52,10 @@ namespace NewSpaceDefender
         List<Meteorite> meteoriteClass = new List<Meteorite>();
         List<CharecterInvader> invaderPluemClass = new List<CharecterInvader>();
 
-        Vector2 ClipPos = new Vector2(680, 20);
-        Vector2 HpPos = new Vector2(0, 20);
-        Vector2 TimePos = new Vector2(680, 80);
-        Vector2 BombPos = new Vector2(680, 50);
+        Vector2 ClipPos = new Vector2(700, 20);
+        Vector2 HpPos = new Vector2(20, 20);
+        Vector2 TimePos = new Vector2(700, 80);
+        Vector2 BombPos = new Vector2(700, 50);
 
 
         int z;
@@ -76,7 +76,7 @@ namespace NewSpaceDefender
         bool[] CheckInvader = new bool[10];
         public bool Stage4Pass = false;
         public bool Stage4fail = false;
-
+        bool checkBullet = false;
 
         public SceneGameSemiFinal(ContentManager content, Vector2 screensize)
         {
@@ -138,7 +138,7 @@ namespace NewSpaceDefender
 
             GameStart = Content.Load<SpriteFont>("StageStart");
             GameClear = Content.Load<SpriteFont>("StageClear");
-
+            ReloadAnnouce = Content.Load<SpriteFont>("ReloadAnnouce");
             Bomb = Content.Load<SpriteFont>("Game1Bomb");
             GameTime = Content.Load<SpriteFont>("Game1Time");
             Clip = Content.Load<SpriteFont>("Game1Clip");
@@ -174,6 +174,15 @@ namespace NewSpaceDefender
             clipmax = lasergun.ClipMax;
             shiphp = spaceship.Hp;
             shiphpmax = spaceship.Maxhp;
+
+            if (clip == 0)
+            {
+                checkBullet = true;
+            }
+            else
+            {
+                checkBullet = false;
+            }
 
             //MovingBackground
             z += timer / 3600 * 60;
@@ -300,7 +309,7 @@ namespace NewSpaceDefender
                 lasergun.Bomb -= 1;
                 if (lasergun.Bomb <= 0) lasergun.Bomb = 0;
             }
-            if (timer % 200 == 1)
+            if (timer % 200 == 1 && lasergun.Bomb != 0)
             {
                 Bombing = true;
             }
@@ -424,6 +433,25 @@ namespace NewSpaceDefender
             }
             spriteBatch.Draw(Crosshair1, CrosshairObj, Color.Red);
 
+            
+
+            if (checkBullet == true)
+            {
+                if ((timer / 30) % 2 == 1 / 2)
+                    spriteBatch.DrawString(ReloadAnnouce, " Quick Pressed to RELOADING!", new Vector2(10, 80), Color.Red);
+            }
+
+            //ShootingAnimation
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed && clip != 0)
+            {
+                spriteBatch.Draw(Shot2, Shot2Obj, Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(Shot1, Shot1Obj, Color.White);
+            }
+
+
             if (timer / 60 < 3)
             {
                 spriteBatch.Draw(StartBlog, new Rectangle(110, 200, StartBlog.Width, StartBlog.Height), Color.White);
@@ -444,17 +472,6 @@ namespace NewSpaceDefender
                     check[i] = true;
                 }
             }
-
-            //ShootingAnimation
-            if (Mouse.GetState().LeftButton == ButtonState.Pressed && clip != 0)
-            {
-                spriteBatch.Draw(Shot2, Shot2Obj, Color.White);
-            }
-            else
-            {
-                spriteBatch.Draw(Shot1, Shot1Obj, Color.White);
-            }
-
         }
     }
 
